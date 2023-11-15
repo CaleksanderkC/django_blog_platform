@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'theme/index_style.css' %}">
+</head>
+<body>
+
+<header>
+    <div class="panel   panel-default">
+        <div class="panel-body">
+
+            <ul>
+                <li>
+                    <a class="bottom-logo" href="{% url 'theme:index' %}">
+                        {% load staticfiles %}
+                        <img src="{% static 'theme/img/dark_logo.png' %}" alt="LOGO" class="img-rounded">
+                    </a>
+                </li>
+                <li>
+                    <div>
+                        <form action="{% url 'theme:index' %}" method="get">
+                            {% csrf_token %}
+                            <input type="text" name="q" value="{{ request.GET.q }}" required>
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span> Search
+                            </button>
+                        </form>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="btn-primary"><a class="btn-primary" href="{% url 'theme:creat' %}">Creat new
+                        Post</a>
+                    </div>
+                </li>
+                <li>
+                    {% if  user.is_authenticated %}
+                        <p>{{ user.username }}</p>
+                        {% if user.profile.avatar %}
+                            <img src="{{user.profile.avatar.url}}" width="50" height="50">
+                        {% endif %} 
+                        <a href="{% url 'user:log_out' %}">log out</a>
+
+                        <a href="{% url 'user:profile' %}">my profile</a>
+
+                    {% else %}
+                        <a href="{% url 'user:sing_up' %}">sing up</a>
+
+                        <a href="{% url 'user:log_in' %}">log in</a>
+                    {% endif %}
+                </li>
+                <li></li>
+            </ul>
+
+
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="jumbotron">
+
+        {% if messages %}
+
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        {{ message }}
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+</div>
+</body>
+</html>

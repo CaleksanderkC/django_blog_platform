@@ -1,0 +1,11 @@
+{% extends 'theme/base.html' %}
+
+{% block content %}
+
+        <form method="post" action="{% url 'theme:creat' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit">
+        </form>
+
+{% endblock %}

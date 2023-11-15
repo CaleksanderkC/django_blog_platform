@@ -1,0 +1,50 @@
+{% extends 'theme/base.html' %}
+
+{% block content %}
+
+    {% if post %}
+
+        {{ post.like_count.count }} <a href="{% url 'theme:like-toggle' post.slug%}">like</a>
+        <h1>{{ post.post_title }}</h1>
+        {{ post.view_count }}
+        <br>
+        {{ post.pub_date }}
+        <br>
+        {{ post.author }}
+
+        <div class="well">{{ post.post_text|linebreaksbr }}</div>
+
+        {% if user ==  post.author %}
+            <a href="{% url 'theme:edit' post.slug %}">Edit post</a>
+            <a href="{% url 'theme:del_post' post.slug%}">Del post</a>
+        {% endif %}
+
+    {% else %}
+        <p>This post is not available.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <form action="{% url 'theme:detail' post.slug %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <div class="form-group">
+                <input type="submit" class="btn-danger">
+            </div>
+        </form>
+    {% endif %}
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <ul class="list-group">
+        {% for c in comment %}
+            <li>
+                <div class="well ">{{ c.comment_text|linebreaks }} {{ c.author }} {{ c.pub_date }}
+                    {% if c.author == user %}
+                        <a href="{% url 'theme:del_comment' c.id%}">del</a>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'theme/base.html' %}
+{% block content %}
+
+{% if posts %}
+    {% for post in posts %}
+        <div class="well">
+            <a href="{% url 'theme:detail' post.slug %}">
+                {{ post.post_title }}
+                {{ post.author }}</a>
+        </div>
+    {% endfor %}
+
+    <ul class="pagination">
+
+        {% if posts.has_previous %}
+            <li class="waves-effect"><a href="?page=
+                    {{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+                    class="material-icons">&ltrif; </i></a></li>
+            {% else %}
+                <li class="disabled"><a href="#!"><i class="material-icons">&ltrif;</i></a></li>
+                {%endif%}
+
+        {% for i in posts.paginator.page_range %}
+            <li><a href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+        {% endfor %}
+
+        {% if posts.has_next %}
+            <li class="waves-effect"><a
+                    href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+                    class="material-icons">&rtrif;</i></a></li>
+        {% else %}
+
+            <li class="disabled"><a href="#!"><i class="material-icons">&rtrif;</i></a></li>
+        {% endif %}
+    </ul>
+
+{% else %}
+    <h1>No post are available</h1>
+{% endif %}
+
+{% endblock %}

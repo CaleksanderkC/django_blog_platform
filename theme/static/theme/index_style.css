@@ -1,0 +1,68 @@
+header{
+    width: 100%;
+    position: fixed;
+    padding: 0;
+}
+
+.panel-body {
+    padding: 5px;
+}
+.jumbotron {
+    margin-top: 60px;
+}
+
+
+header .btn-primary {
+
+    display: block;
+    width: 100px;
+    height: 50px;
+    text-decoration: none;
+    float: right;
+}
+
+textarea{
+    overflow: auto;
+    resize: none;
+}
+
+header .btn-primary a {
+
+    text-align: center;
+    padding: 5px;
+}
+
+h1 {
+    text-align: center;
+}
+
+
+.img-rounded {
+    float: left;
+    display: inline-block;
+    width: 120px;
+    height: 50px;
+}
+
+
+header ul li {
+    display: inline-block;
+    float: left;
+    margin-right: 200px;
+}
+.index-slider {
+    text-align: center;
+    display: block;
+    text-underline: none;
+    padding: 20px;
+}
+.well {
+    text-align: center;
+}
+.bottom-logo {
+    display: block;
+}
+.error_massage {
+    color: red;
+    font-size: 20px;
+}

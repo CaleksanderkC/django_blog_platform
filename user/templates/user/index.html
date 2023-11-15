@@ -1,0 +1,28 @@
+{% extends 'theme/base.html' %}
+
+{% block content %}
+    user name: {{ user.username }}
+    <br>
+    first name: {{ user.first_name }}
+    <br>
+    last name: {{ user.last_name }}
+    <br>
+    bio: {{ user.profile.bio }}
+
+    
+    <br>
+    <a href="{% url 'user:change_profile' %}">change my profile</a>
+    <h4>my post</h4>
+
+    {% for post in users_post %}
+        <div class="well">
+            <a href="{% url 'theme:detail' post.slug %}">
+                {{ post.post_title }}
+            </a>
+
+        </div>
+    {% endfor %}
+
+
+
+{% endblock %}
